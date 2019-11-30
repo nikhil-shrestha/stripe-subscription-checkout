@@ -1,13 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 
 const subscription = ({ history }) => {
   const onSelectPlan = plan => {
     console.log('plan::', plan);
-    axios.post('/api/stripe/create-checkout-session', {
-      planId: plan
-    });
-    // history.push(`/checkout/${plan}`);
+
+    history.push(`/checkout/${plan}`);
   };
   return (
     <React.Fragment>

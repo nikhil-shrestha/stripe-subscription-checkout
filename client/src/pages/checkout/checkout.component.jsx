@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import StripeCardElement from '../../components/card-element/card-element.component';
+
 const Checkout = ({ match }) => {
   const [loading, setLoading] = useState(false);
   const [planDetails, setPlanDetails] = useState(null);
@@ -27,43 +29,8 @@ const Checkout = ({ match }) => {
           <h1 className="order-amount">$ {planDetails.amount / 100}</h1>
           <h4>Subscribe to the {planDetails.nickname}</h4>
         </div>
-        <form>
-          <div className="sr-payment-form payment-view">
-            <div className="sr-form-row">
-              <label for="card-element">Payment details</label>
-              <div className="sr-combo-inputs">
-                <div className="sr-combo-inputs-row">
-                  <input
-                    type="text"
-                    id="email"
-                    placeholder="Email"
-                    autocomplete="cardholder"
-                    className="sr-input"
-                  />
-                </div>
-                <div className="sr-combo-inputs-row">
-                  <div
-                    className="sr-input sr-card-element"
-                    id="card-element"
-                  ></div>
-                </div>
-              </div>
-              <div
-                className="sr-field-error"
-                id="card-errors"
-                role="alert"
-              ></div>
-            </div>
-            <button id="submit">
-              <div id="spinner" className="hidden"></div>
-              <span id="button-text">Subscribe</span>
-            </button>
-            <div className="sr-legal-text">
-              Your card will be immediately charged
-              <span className="order-total">$14.00</span>.
-            </div>
-          </div>
-        </form>
+
+        <StripeCardElement planDetails={planDetails} />
       </div>
 
       <div className="sr-content">
