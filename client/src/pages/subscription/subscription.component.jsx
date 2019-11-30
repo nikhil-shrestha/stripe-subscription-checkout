@@ -1,74 +1,91 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 
-const subscription = ({ history }) => {
-  const onSelectPlan = plan => {
-    console.log('plan::', plan);
+import NavHeader from '../../components/header/header.component';
 
-    history.push(`/checkout/${plan}`);
+const { Body, Title, Text, Footer } = Card;
+const {} = Form;
+
+const Subscription = props => {
+  const [cardActive, setCardActive] = useState();
+  const selectCard = offerId => {
+    setCardActive(offerId);
+  };
+  const onSubmitHandler = e => {
+    e.preventDefault();
+    props.history.push(`/checkout/${cardActive}`);
   };
   return (
-    <React.Fragment>
-      <div className="sr-main" style={{ display: 'flex' }}>
-        <header className="sr-header">
-          <div className="sr-header__logo"></div>
-        </header>
-        <div className="sr-container">
-          <section className="container basic-photo">
-            <div>
-              <h1>Basic subscription</h1>
-              <h4>1 photo per week</h4>
-              <div className="pasha-image">
-                <img
-                  src="https://picsum.photos/280/320?random=4"
-                  width="140"
-                  height="160"
-                />
-              </div>
-            </div>
-            <button
-              id="basic-plan-btn"
-              onClick={() => onSelectPlan('plan_GGCiVKaRLBWLWa')}
-            >
-              $5.00 per week
-            </button>
-          </section>
-          <section className="container pro-photo">
-            <div>
-              <h1>Pro subscription</h1>
-              <h4>3 photos per week</h4>
-              <div className="pasha-image-stack">
-                <img
-                  src="https://picsum.photos/280/320?random=1"
-                  width="105"
-                  height="120"
-                  alt="Sample Pasha image 1"
-                />
-                <img
-                  src="https://picsum.photos/280/320?random=2"
-                  width="105"
-                  height="120"
-                  alt="Sample Pasha image 2"
-                />
-                <img
-                  src="https://picsum.photos/280/320?random=3"
-                  width="105"
-                  height="120"
-                  alt="Sample Pasha image 3"
-                />
-              </div>
-            </div>
-            <button
-              id="pro-plan-btn"
-              onClick={() => onSelectPlan('plan_GGCl74YUQLh2tv')}
-            >
-              $14.00 per week
-            </button>
-          </section>
-        </div>
-        <div id="error-message"></div>
-      </div>
-    </React.Fragment>
+    <>
+      <NavHeader
+        brand={<h5 className="title">Subscription</h5>}
+        isAuthenticated
+      />
+      <Container>
+        <Row>
+          <Col md="6" className="mx-auto py-4 px-3">
+            <h5>Select a Subscription</h5>
+            <Form onSubmit={onSubmitHandler}>
+              <Card
+                onClick={() => selectCard('radio1')}
+                className={`${
+                  'radio1' === cardActive ? 'card-active' : ''
+                } mb-3 `}
+                style={{ cursor: 'pointer' }}
+              >
+                <Body>
+                  <Row>
+                    <Col>
+                      <Text>Monthly</Text>
+                    </Col>
+                    <Col>
+                      <Form.Check
+                        type="radio"
+                        checked={'radio1' === cardActive}
+                        name="formHorizontalRadios"
+                        id="formHorizontalRadios1"
+                      />
+                    </Col>
+                  </Row>
+                </Body>
+              </Card>
+              <Card
+                onClick={() => selectCard('radio2')}
+                className={`${
+                  'radio2' === cardActive ? 'card-active' : ''
+                } mb-3 `}
+                style={{ cursor: 'pointer' }}
+              >
+                <Body>
+                  <Row>
+                    <Col>
+                      <Text>Yearly</Text>
+                    </Col>
+                    <Col>
+                      <Form.Check
+                        type="radio"
+                        checked={'radio2' === cardActive}
+                        name="formHorizontalRadios"
+                        id="formHorizontalRadios2"
+                      />
+                    </Col>
+                  </Row>
+                </Body>
+              </Card>
+
+              <Button variant="primary" type="submit" block>
+                Submit
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 
-export default subscription;
+Subscription.propTypes = {};
+
+export default Subscription;

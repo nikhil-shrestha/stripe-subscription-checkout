@@ -1,66 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 
+import NavHeader from '../../components/header/header.component';
 import StripeCardElement from '../../components/card-element/card-element.component';
 
-const Checkout = ({ match }) => {
-  const [loading, setLoading] = useState(false);
-  const [planDetails, setPlanDetails] = useState(null);
-  useEffect(() => {
-    console.log('checkout');
-    const planId = match.params.plan_id;
-    setLoading(true);
-    async function fetchData() {
-      const res = await axios.get(`/api/stripe/plans/retrieve/${planId}`);
-      setPlanDetails(res.data);
-      setLoading(false);
-      console.log('response::', res);
-    }
-    fetchData();
-  }, []);
+const { Body, Title, Text, Footer } = Card;
+const {} = Form;
 
-  return planDetails !== null && !loading ? (
-    <React.Fragment>
-      <div className="sr-main" style={{ display: 'flex' }}>
-        <header className="sr-header">
-          <div className="sr-header__logo"></div>
-        </header>
-        <div className="sr-payment-summary payment-view">
-          <h1 className="order-amount">$ {planDetails.amount / 100}</h1>
-          <h4>Subscribe to the {planDetails.nickname}</h4>
-        </div>
+const Checkout = props => {
+  const [cardActive, setCardActive] = useState();
+  const selectCard = offerId => {
+    setCardActive(offerId);
+  };
+  const onSubmitHandler = e => {
+    e.preventDefault();
+    props.history.push(`/checkout/${cardActive}`);
+  };
+  return (
+    <>
+      <NavHeader
+        brand={<h5 className="title">Subscription</h5>}
+        isAuthenticated
+      />
+      <Container>
+        <Row>
+          <Col md="6" className="mx-auto py-4 px-3">
+            <h5>Select a Subscription</h5>
 
-        <StripeCardElement planDetails={planDetails} />
-      </div>
-
-      <div className="sr-content">
-        <div className="pasha-image-stack">
-          <img
-            src="https://picsum.photos/280/320?random=1"
-            width="140"
-            height="160"
-          />
-          <img
-            src="https://picsum.photos/280/320?random=2"
-            width="140"
-            height="160"
-          />
-          <img
-            src="https://picsum.photos/280/320?random=3"
-            width="140"
-            height="160"
-          />
-          <img
-            src="https://picsum.photos/280/320?random=4"
-            width="140"
-            height="160"
-          />
-        </div>
-      </div>
-    </React.Fragment>
-  ) : (
-    'loading'
+            <StripeCardElement />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
+
+Checkout.propTypes = {};
 
 export default Checkout;

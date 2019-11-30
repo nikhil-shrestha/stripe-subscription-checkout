@@ -122,7 +122,7 @@ class _SplitForm extends React.Component {
           <div className="sr-legal-text">
             Your card will be immediately charged
             <span className="order-total">
-              ${this.props.planDetails.amount / 100}
+              {/* ${this.props.planDetails.amount / 100} */}
             </span>
             .
           </div>
