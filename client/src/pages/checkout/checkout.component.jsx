@@ -27,8 +27,21 @@ const Checkout = props => {
       <Container>
         <Row>
           <Col md="6" className="mx-auto py-4 px-3">
-            <h5>Select a Subscription</h5>
-
+            {/* Product Summary */}
+            <div className="ProductSummary">
+              <span>Subscribe to Monthly plan</span>
+              <div className="ProductSummaryTotalAmount">
+                <div className="mr-2 flex-item width-fixed">
+                  <span className="Text-fontWeight--600 Text-fontSize-28">
+                    $5.00
+                  </span>
+                </div>
+                <div className="flex-item width-fixed">
+                  <span className="TextColor-Grey Text-fontSize-14"></span>
+                </div>
+              </div>
+            </div>
+            <hr />
             <StripeCardElement />
           </Col>
         </Row>

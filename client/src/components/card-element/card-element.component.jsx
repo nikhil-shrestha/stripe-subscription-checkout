@@ -59,73 +59,63 @@ class _SplitForm extends React.Component {
     };
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="sr-payment-form payment-view">
-          <div className="sr-form-row">
-            <label for="card-element">Payment details</label>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+          />
+        </div>
+        <div class="form-group">
+          <label>Card Details</label>
+          <div class="input-group input-group-lg">
+            <CardNumberElement
+              className="form-control sr-card-element"
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              onFocus={this.handleFocus}
+              onReady={this.handleReady}
+              {...createOptions(this.props.fontSize)}
+            />
+            <div class="input-group">
+              <CardExpiryElement
+                className="form-control sr-card-element"
+                onBlur={this.handleBlur}
+                onChange={this.handleChange}
+                onFocus={this.handleFocus}
+                onReady={this.handleReady}
+                {...createOptions(this.props.fontSize)}
+              />
 
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                autocomplete="cardholder"
-                className="sr-input"
+              <CardCVCElement
+                className="form-control sr-card-element"
+                onBlur={this.handleBlur}
+                onChange={this.handleChange}
+                onFocus={this.handleFocus}
+                onReady={this.handleReady}
+                {...createOptions(this.props.fontSize)}
               />
             </div>
-            <br />
-            <div className="sr-combo-inputs">
-              <div className="sr-combo-inputs-row">
-                <CardNumberElement
-                  className="sr-input sr-card-element"
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  onFocus={this.handleFocus}
-                  onReady={this.handleReady}
-                  {...createOptions(this.props.fontSize)}
-                />
-              </div>
-              <div className="sr-combo-inputs-row">
-                <CardExpiryElement
-                  className="sr-input sr-card-element"
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  onFocus={this.handleFocus}
-                  onReady={this.handleReady}
-                  {...createOptions(this.props.fontSize)}
-                />
-
-                <CardCVCElement
-                  className="sr-input sr-card-element"
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  onFocus={this.handleFocus}
-                  onReady={this.handleReady}
-                  {...createOptions(this.props.fontSize)}
-                />
-              </div>
-            </div>
-            <br />
-
-            <input
-              type="text"
-              name="name"
-              placeholder="Name on card"
-              className="sr-input"
-            />
-
-            <div className="sr-field-error" id="card-errors" role="alert"></div>
           </div>
-          <button id="submit">
-            <div id="spinner" className="hidden"></div>
-            <span id="button-text">Subscribe</span>
-          </button>
-          <div className="sr-legal-text">
-            Your card will be immediately charged
-            <span className="order-total">
-              {/* ${this.props.planDetails.amount / 100} */}
-            </span>
-            .
-          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputName1">Name on Card</label>
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputName1"
+            placeholder="Enter Name"
+          />
+        </div>
+        <button type="submit" className="btn btn-info btn-block">
+          <div id="spinner"></div>
+          <span id="button-text">Subscribe</span>
+        </button>
+        <div className="text-center">
+          <p class="text-muted">Your card will be immediately charged</p>
         </div>
       </form>
     );

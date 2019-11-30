@@ -6,7 +6,8 @@ const Header = ({ brand, route, isAuthenticated }) => {
   return (
     <Navbar className="light justify-content-between" expand="lg">
       <Container>
-        {brand}
+        <Navbar.Brand> {brand}</Navbar.Brand>
+
         <Nav>
           {isAuthenticated ? (
             <NavDropdown
